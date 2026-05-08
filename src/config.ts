@@ -6,6 +6,7 @@ export class SaveOutputConfigProvider extends ConfigProvider {
         saveOutput: {
             autoSave: 'off',
             autoSaveDirectory: null,
+            lineTimestamps: true,
         },
     }
 
