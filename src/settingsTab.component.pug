@@ -27,3 +27,12 @@ h3 Save Output
         .input-group-append
             button.btn.btn-secondary((click)='pickDirectory()')
                 i.fas.fa-folder-open
+
+.form-line(*ngIf='config.store.saveOutput.autoSave !== "off"')
+    .header
+        .title Prefix each line with a local timestamp
+        .description Full-screen apps (top, vim, less) are auto-detected and skipped to keep their output readable
+    toggle(
+        [(ngModel)]='config.store.saveOutput.lineTimestamps',
+        (ngModelChange)='config.save()'
+    )
