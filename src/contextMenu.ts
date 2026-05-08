@@ -20,7 +20,7 @@ export class SaveOutputContextMenu extends TerminalContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTerminalTabComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTerminalTabComponent<any>): Promise<MenuItemOptions[]> {
         return [
             {
                 label: 'Save output to file...',
@@ -33,7 +33,7 @@ export class SaveOutputContextMenu extends TerminalContextMenuItemProvider {
         ]
     }
 
-    start (tab: BaseTerminalTabComponent) {
+    start (tab: BaseTerminalTabComponent<any>) {
         if ((tab as any)._saveOutputActive) {
             return
         }
