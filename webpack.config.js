@@ -21,9 +21,10 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'ts-loader',
         options: {
-          configFileName: path.resolve(__dirname, 'tsconfig.json'),
+          configFile: path.resolve(__dirname, 'tsconfig.json'),
+          transpileOnly: false,
         }
       },
       {
