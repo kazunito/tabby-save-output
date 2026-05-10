@@ -27,12 +27,11 @@ Start recording your console output by right clicking and pressing "Save output 
 
 通常コマンド:
 ```
-[2026-05-09 04:50:47] $ aws guardduty list-detectors --region ap-northeast-1
-[2026-05-09 04:50:48] {
-[2026-05-09 04:50:48]     "DetectorIds": [
-[2026-05-09 04:50:48]         "EXAMPLE_DETECTOR_ID_PLACEHOLDER"
-[2026-05-09 04:50:48]     ]
-[2026-05-09 04:50:48] }
+[2026-05-09 04:50:47] $ ls -la /tmp/example
+[2026-05-09 04:50:48] total 8
+[2026-05-09 04:50:48] drwxr-xr-x   3 user  staff   96 May  9 04:50 .
+[2026-05-09 04:50:48] drwxrwxrwt  10 root  staff  320 May  9 04:50 ..
+[2026-05-09 04:50:48] -rw-r--r--   1 user  staff   42 May  9 04:50 readme.txt
 ```
 
 フルスクリーンアプリ（vim 終了時）:
