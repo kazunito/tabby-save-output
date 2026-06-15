@@ -10,6 +10,7 @@
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
+    "pack": "bash release.sh",
     "prepublishOnly": "npm run build"
   },
   "files": [
