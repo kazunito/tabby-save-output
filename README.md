@@ -22,6 +22,7 @@ Start recording your console output by right clicking and pressing "Save output 
 - **フルスクリーンアプリ対応**: `vim`、`top`、`less`、`htop` などの alternate screen buffer を自動検出。`@xterm/headless` でレンダリングし、終了時の最終画面をプレーンテキストとしてログに記録します。
 - **ターミナルリサイズ追従**: alt-screen 中にウィンドウサイズを変更しても、最終画面が現在のサイズで正しく折り返されます。
 - **キャリッジリターン処理**: AWS CLI のページャー（`less -FRX`）や進捗バーなど、`\r` でカーソルを戻して上書きするコマンドの出力を、最終状態だけログに残るように整形します。
+- **制御文字の完全除去**（v4.0.1）: 色指定（`ESC[01;32m` や 256 色・True color）、ウィンドウタイトル、WSL2 / 新しい systemd がプロンプトごとに送る通知（OSC 3008）を、まとまりごと取り除きます。v4.0.0 以前は `;32m` や `;start=…;cwd=…` がログに残っていました。
 
 ### ログ例
 
@@ -62,7 +63,7 @@ Settings → **Save Output** タブ:
 
 **1. zip をダウンロード**
 
-[Releases ページ](https://github.com/kazunito/tabby-save-output/releases) から `tabby-save-output-<version>.zip`（例: `tabby-save-output-4.0.0.zip`）をダウンロードします。
+[Releases ページ](https://github.com/kazunito/tabby-save-output/releases) から `tabby-save-output-<version>.zip`（例: `tabby-save-output-4.0.1.zip`）をダウンロードします。
 
 > ⚠️ **`Source code (zip)` ではありません。** ビルド済み本体（`dist/`）が入っているのは Release に添付された `tabby-save-output-<version>.zip` の方です。GitHub が自動生成する `Source code (zip)` には `dist/` が含まれず、解凍しても動作しません。
 
@@ -73,7 +74,7 @@ Settings → **Save Output** タブ:
 **macOS:**
 ```bash
 mkdir -p ~/Library/Application\ Support/tabby/plugins/node_modules
-unzip -o ~/Downloads/tabby-save-output-4.0.0.zip \
+unzip -o ~/Downloads/tabby-save-output-4.0.1.zip \
   -d ~/Library/Application\ Support/tabby/plugins/node_modules/
 ```
 
@@ -246,6 +247,10 @@ ls ~/Library/Application\ Support/tabby/plugins/node_modules/tabby-save-output/
 
 v4.0.0 で対応済みです。古いバージョンを使っている場合は最新版を取得してください。
 
+### ログに `;32m` や `;start=…;machineid=…` などの文字列が混ざる
+
+色付きの出力や WSL2 のプロンプトに含まれる制御文字の消し残しです。v4.0.1 で対応済みです。最新版を取得してください。
+
 ---
 
 ## 開発者向け（コードを変更する場合）
@@ -262,7 +267,7 @@ npm run watch
 
 ```bash
 npm run pack
-# → release/tabby-save-output-4.0.0.zip
+# → release/tabby-save-output-4.0.1.zip
 ```
 
 中身はビルド済み `dist/` と `package.json` / `README.md` だけで、アーカイブのトップは `tabby-save-output/` フォルダです。利用者は `plugins/node_modules/` に解凍するだけで動作します。
@@ -274,4 +279,5 @@ npm run pack
 ## 既知の制限
 
 - alt-screen に入るエスケープシーケンス（8 バイト）がチャンク境界で分割された場合、検出を取りこぼす可能性があります。実用上はほぼ問題になりません。
+- 色指定などの制御文字がチャンク境界で分割された場合も、断片がログに残る可能性があります。実用上はほぼ問題になりません。
 - フルスクリーンアプリの編集途中の状態は記録されません（最終画面のみ）。
